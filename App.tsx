@@ -1,7 +1,19 @@
 import * as React from 'react';
+import { useState } from 'react';
 import './style.css';
 
 export default function App() {
+  const [item, setItem] = useState('');
+  const [contadores, setContadores] = useState([]);
+  const handleClickBtInserir = () => {
+    const contadoresFiltrados = contadores.filter(
+      (contador) => contador.props.txt === item
+    );
+    if (contadoresFiltrados.length === 0) {
+      setContadores([...contadores, <Contador key={item} txt={item} />]);
+    }
+  };
+
   //criando variavel Titulo
   const Titulo = ({ txt }) => {
     return <h3>{txt}</h3>;
@@ -21,18 +33,22 @@ export default function App() {
 
     //criando função para diminuir
     const handleClickMenos = () => {
-      if (contador > 0) {
-        setContador(contador - 1);
-      }
+      //não precisa mais do if
+      //if (contador > 0) {
+      setContador(contador - 1);
+      //}
     };
 
     return (
       <div>
-        <h1>
+        <h3>
           {txt} - {contador}
-        </h1>
+        </h3>
         <button onClick={handleClickMais}>+</button>
-        <button onClick={handleClickMenos}>-</button>
+        {/* o botão (-) será desativado quando contador for igual ou menor que 0 */}
+        <button onClick={handleClickMenos} disabled={contador <= 0}>
+          -
+        </button>
       </div>
     );
   };
@@ -40,6 +56,13 @@ export default function App() {
   return (
     <div>
       <div className="App">
+        <input
+          placeholder="Item da lista de compras"
+          value={item}
+          onChange={(evt) => setItem(evt.target.value)}
+        />
+        <button onClick={handleClickBtInserir}>Inserir</button>
+        <hr />
         <Titulo txt="Nome: Eudes" />
         <Titulo txt={`Idade: ${idade}`} />
         <hr />
@@ -49,6 +72,8 @@ export default function App() {
         <Contador txt="Laranjas:" />
         <hr />
         <Contador txt="Tomates:" />
+        <hr />
+        <div>{contadores}</div>
         <hr />
       </div>
     </div>
