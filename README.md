@@ -1,3 +1,1 @@
-# react-ts-besobb
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/react-ts-besobb)
+Criando contadores com React, usando como exemplo uma lista de compras.

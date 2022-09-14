@@ -56,17 +56,17 @@ export default function App() {
   return (
     <div>
       <div className="App">
-        <input
-          placeholder="Item da lista de compras"
-          value={item}
-          onChange={(evt) => setItem(evt.target.value)}
-        />
-        <button onClick={handleClickBtInserir}>Inserir</button>
-        <hr />
         <Titulo txt="Nome: Eudes" />
         <Titulo txt={`Idade: ${idade}`} />
         <hr />
         <p> Exemplo dos Contadores:</p>
+        <input
+          placeholder="Novo item"
+          value={item}
+          onChange={(evt) => setItem(evt.target.value)}
+        />
+        <button onClick={handleClickBtInserir}>Inserir na lista</button>
+        <hr />
         <Contador txt="Bananas:" />
         <hr />
         <Contador txt="Laranjas:" />
