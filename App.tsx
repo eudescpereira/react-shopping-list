@@ -4,51 +4,46 @@ import './style.css';
 
 export default function App() {
   const [item, setItem] = useState('');
-  const [contadores, setContadores] = useState([]);
-  const handleClickBtInserir = () => {
-    const contadoresFiltrados = contadores.filter(
-      (contador) => contador.props.txt === item
+  const [counters, setCounters] = useState([]);
+  const handleClickBtInsert = () => {
+    const filteredCounters = counters.filter(
+      (counter) => counter.props.txt === item
     );
-    if (contadoresFiltrados.length === 0) {
-      setContadores([...contadores, <Contador key={item} txt={item} />]);
+    if (filteredCounters.length === 0) {
+      setCounters([...counters, <Counter key={item} txt={item} />]);
     }
   };
 
-  //criando variavel Titulo
-  const Titulo = ({ txt }) => {
-    return <h3>{txt}</h3>;
+  //creating variable Title
+  const Title = ({ txt }) => {
+    return <h1>{txt}</h1>;
   };
 
-  //criando variavel idade
-  let idade = 19;
+  //creating variable Counter
+  const Counter = ({ txt }) => {
+    let [counter, setCounter] = React.useState(0);
 
-  //criando variavel Contador
-  const Contador = ({ txt }) => {
-    let [contador, setContador] = React.useState(0);
-
-    //criando função para acrescentar
-    const handleClickMais = () => {
-      setContador((contadorAtual) => contadorAtual + 1);
+    //creating function to increase
+    const handleClickMore = () => {
+      setCounter((currentCounter) => currentCounter + 1);
     };
 
-    //criando função para diminuir
-    const handleClickMenos = () => {
-      //não precisa mais do if
-      //if (contador > 0) {
-      setContador(contador - 1);
-      //}
+    //creating function to decrease
+    const handleClickLess = () => {
+      //it doesnt need 'if'
+      //if (counter > 0) {
+      setCounter(counter - 1);
     };
 
     return (
       <div>
         <h3>
-          {txt} - {contador}
+          {txt}: {counter}
         </h3>
-        <button onClick={handleClickMais}>+</button>
-        {/* o botão (-) será desativado quando contador for igual ou menor que 0 */}
-        <button onClick={handleClickMenos} disabled={contador <= 0}>
-          -
-        </button>
+        <button onClick={handleClickMore}>+</button>
+        <button onClick={handleClickLess} disabled={counter <= 0}>-</button>
+         {/* button (-) will be deactvated when Counter <= 0 */}
+        <hr />
       </div>
     );
   };
@@ -56,25 +51,18 @@ export default function App() {
   return (
     <div>
       <div className="App">
-        <Titulo txt="Nome: Eudes" />
-        <Titulo txt={`Idade: ${idade}`} />
-        <hr />
-        <p> Exemplo dos Contadores:</p>
+      <Title txt="Shopping List" />
         <input
-          placeholder="Novo item"
+          placeholder="New item"
           value={item}
           onChange={(evt) => setItem(evt.target.value)}
         />
-        <button onClick={handleClickBtInserir}>Inserir na lista</button>
-        <hr />
-        <Contador txt="Bananas:" />
-        <hr />
-        <Contador txt="Laranjas:" />
-        <hr />
-        <Contador txt="Tomates:" />
-        <hr />
-        <div>{contadores}</div>
-        <hr />
+        <button onClick={handleClickBtInsert}>Insert on the list</button>
+        <Counter txt="Bananas" />
+        <Counter txt="Oranges" />
+        <Counter txt="Blueberries" />
+        <div>{counters}
+        </div>
       </div>
     </div>
   );
